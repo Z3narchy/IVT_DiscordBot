@@ -1,56 +1,20 @@
 import random
 import os
+import requests
 import discord
 from dotenv import load_dotenv
-
-# 1
 from discord.ext import commands
 
-load_dotenv()
-TOKEN = os.getenv('DISCORD_TOKEN')
-
-# 2
-bot = commands.Bot(command_prefix='!')
-
+#Load .env
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 GUILD = os.getenv('DISCORD_GUILD')
 
-intents = discord.Intents.default()
-intents.members = True
-client = discord.Client(intents=intents)
+#Setup Bot
+bot = commands.Bot(command_prefix='!')
 
-@client.event
-async def on_ready():
-    for guild in client.guilds:
-        if guild.name == GUILD:
-            break
-
-    print(
-        f'{client.user} is connected to the following guild: \n' 
-        f'{guild.name} (id: {guild.id})'
-    )
-
-    # just trying to debug here
-    for guild in client.guilds:
-        for member in guild.members:
-            print(member.name, ' ')
-
-    members = '\n - '.join([member.name for member in guild.members])
-    print(f'Guild Members:\n - {members}')
-    
-@client.event
-async def on_member_join(member):
-    await member.create_dm()
-    await member.dm_channel.send(
-        f'Hi {member.name}, welcome to my Discord server!'
-    )
-
-@client.event
-async def on_message(message):
-    if message.author == client.user:
-        return
-
+@bot.command(name='99')
+async def nine_nine(ctx):
     brooklyn_99_quotes = [
         'I\'m the human form of the 💯 emoji.',
         'Bingpot!',
@@ -60,19 +24,54 @@ async def on_message(message):
         ),
     ]
 
-    if message.content == '99!':
-        response = random.choice(brooklyn_99_quotes)
-        await message.channel.send(response)
+    response = random.choice(brooklyn_99_quotes)
+    await ctx.send(response)
 
-    if 'happy birthday' or 'hb' in message.content.lower():
-        await message.channel.send('t po bo mais cé po rave')
+@bot.command(name='meme')
+async def meme(ctx):
+    reponsejson = requests.get(f'http://alpha-meme-maker.herokuapp.com/memes/{random.randrange(0 , 150)}').json()
+    await ctx.send(reponsejson['data']['image'])
 
-@client.event
-async def on_error(event, *args, **kwargs):
-    with open('err.log', 'a') as f:
-        if event == 'on_message':
-            f.write(f'Unhandled message: {args[0]}\n')
-        else:
-            raise 
+@bot.command(name='actus')
+async def actus(ctx):
+    reponseActu = requests.get('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.ycombinator.com%2Frss').json()
+    for item in reponseActu['items']:
+        await ctx.send(item['link'])
+    
 
-client.run(TOKEN)
+@bot.command(name='chien')
+async def chien(ctx, arg):
+    reponsejson = requests.get(f'https://api.funtranslations.com/translate/doge.json?text={arg}/').json()
+    await ctx.send(reponsejson['contents']['translated'])
+
+@bot.command(name='chuck')
+async def chuck(ctx):
+    reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
+    await ctx.send(reponsejson['value'])
+
+@bot.command(name='troll')
+async def troll(ctx):
+    reponseTroll = "voici du troll"
+    await ctx.send(reponseTroll)
+
+@bot.command(name='patate')
+async def patate(ctx, arg):
+    reponsePatate = "DÉ PETATES!"
+    await ctx.send(reponsePatate + ' ' + arg)
+
+@bot.command(name='garall')
+async def garall(ctx):
+    garallOnline = "GARALL EST ENFIN EN LIGNE!!!"
+    await ctx.send(garallOnline)
+
+@bot.command(name='garall+')
+async def garall(ctx, arg):
+    garallPlus = "GARALL EST ENFIN EN LIGNE!!!"
+    await ctx.send(garallPlus + arg)
+
+@bot.command(name='multiply')
+async def multiply(ctx, arg, arg2):
+    paulKing = 'resultat ='
+    await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
+
+bot.run(TOKEN)
