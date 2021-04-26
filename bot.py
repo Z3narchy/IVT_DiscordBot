@@ -2,6 +2,7 @@ import random
 import os
 import requests
 import discord
+import random
 from dotenv import load_dotenv
 from discord.ext import commands
 
@@ -19,6 +20,11 @@ bot = commands.Bot(command_prefix='!')
 async def meme(ctx):
     reponsejson = requests.get(f'http://alpha-meme-maker.herokuapp.com/memes/{random.randrange(0 , 150)}').json()
     await ctx.send(reponsejson['data']['image'])
+
+@bot.command(name='actu')
+async def actu(ctx):
+    reponseActu = requests.get('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.ycombinator.com%2Frss').json()
+    await ctx.send(random.choice(reponseActu['items'])['link'])
 
 # Va chercher des nouvelles technologiques
 @bot.command(name='actus')
