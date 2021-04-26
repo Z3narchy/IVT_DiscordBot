@@ -56,4 +56,40 @@ async def multiply(ctx, arg, arg2):
     paulKing = 'resultat ='
     await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
 
+@bot.command(name='rpc')
+async def rpc(ctx, arg):
+    result = ""
+    answers = ["roche", "papier", "ciseaux"]
+    answerReturned = random.choice(answers)
+    results = ["égalité!",  "IVT Bot wins, FATALITY!",  "Pfff... tu as gagné, c\'était de la chance"]
+    
+    if arg.lower() == answerReturned:
+        result = results[0]
+        
+    elif arg.lower() == answers[0]:
+        if answerReturned == answers[1]:
+            result = results[1]
+        elif answerReturned == answers[2]:
+            result = results[2]
+            
+    elif arg.lower() == answers[1]:
+        if answerReturned == answers[2]:
+            result = results[1]
+        elif answerReturned == answers[0]:
+            result = results[2]
+    
+    elif arg.lower() == answers[2]:
+        if answerReturned == answers[0]:
+            result = results[1]
+        elif answerReturned == answers[1]:
+            result = results[2]
+
+    else:
+        result = "sais tu au moins jouer à roche/papier/ciseaux?"
+        answerReturned = "Meh"
+    
+    message = answerReturned + ", " + result
+    await ctx.send(f'{message}')
+
+
 bot.run(TOKEN)
