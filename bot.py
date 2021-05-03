@@ -57,12 +57,12 @@ async def multiply(ctx, arg, arg2):
     paulKing = 'resultat ='
     await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
 
-@bot.command(name='Ping')
-async def Ping(ctx):
-    await ctx.channel.send('Pong!')
+@bot.command(name='ping')
+async def ping(ctx):
+    await ctx.channel.send('pong!')
 
-@bot.command(name='Salutation')
-async def Salutation(ctx):
+@bot.command(name='salutation')
+async def salutation(ctx):
     salutation = [
         'Hello!',
         'Bonjour!',
@@ -77,8 +77,8 @@ async def Salutation(ctx):
     response = random.choice(salutation)
     await ctx.channel.send(response)
 
-@bot.command(name='Yatzee')
-async def Yatzee(ctx):
+@bot.command(name='yahtzee')
+async def yahtzee(ctx):
     valeurJoueur = random.randrange(5, 30, 2)
     valeurBot = random.randrange(5, 30, 2)
     if valeurJoueur > valeurBot:
@@ -89,8 +89,5 @@ async def Yatzee(ctx):
         resultat = 'Hum, match nul!'
 
     await ctx.channel.send('Votre valeur: '+ str(valeurJoueur) + ' Ma valeur: '+ str(valeurBot) + ' Résultat: ' + resultat)
-
-
-
 
 bot.run(TOKEN)
