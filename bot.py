@@ -5,6 +5,7 @@ import discord
 import random
 from dotenv import load_dotenv
 from discord.ext import commands
+from random import Random
 
 # Load .env
 load_dotenv()
@@ -55,5 +56,41 @@ async def patate(ctx, arg):
 async def multiply(ctx, arg, arg2):
     paulKing = 'resultat ='
     await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
+
+@bot.command(name='Ping')
+async def Ping(ctx):
+    await ctx.channel.send('Pong!')
+
+@bot.command(name='Salutation')
+async def Salutation(ctx):
+    salutation = [
+        'Hello!',
+        'Bonjour!',
+        'Aloha!',
+        'Buenos dias!',
+        'こんにちは!',
+        'Buongiorno!',
+        'Salve!',
+        'Buna ziua!',
+    ]
+
+    response = random.choice(salutation)
+    await ctx.channel.send(response)
+
+@bot.command(name='Yatzee')
+async def Yatzee(ctx):
+    valeurJoueur = random.randrange(5, 30, 2)
+    valeurBot = random.randrange(5, 30, 2)
+    if valeurJoueur > valeurBot:
+        resultat = 'Vous avez gagné!'
+    elif valeurJoueur < valeurBot:
+        resultat = 'Désolé, vous avez perdu!'
+    elif valeurJoueur == valeurBot:
+        resultat = 'Hum, match nul!'
+
+    await ctx.channel.send('Votre valeur: '+ str(valeurJoueur) + ' Ma valeur: '+ str(valeurBot) + ' Résultat: ' + resultat)
+
+
+
 
 bot.run(TOKEN)
