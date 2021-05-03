@@ -42,10 +42,12 @@ async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
 
+# Ping Pong
 @bot.command(name='ping')
 async def ping(ctx):
     await ctx.channel.send('pong!')
 
+# Salutations multilingues
 @bot.command(name='salutation')
 async def salutation(ctx):
     salutation = [
@@ -62,6 +64,7 @@ async def salutation(ctx):
     response = random.choice(salutation)
     await ctx.channel.send(response)
 
+# Partie de Yahtzee
 @bot.command(name='yahtzee')
 async def yahtzee(ctx):
     valeurJoueur = random.randrange(5, 30, 2)
@@ -117,13 +120,12 @@ async def rpc(ctx, arg):
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
 
-<<<<<<< HEAD
+# Requete Lyrics API
 @bot.command(name='lyrics')
 async def lyrics(ctx, arg1, arg2):
     reponsejson = requests.get(f'https://api.lyrics.ovh/v1/{arg1}/{arg2}').json()
     await ctx.send(reponsejson['lyrics'])
 
-=======
 #Youtube bot
 @bot.command(name='play')
 async def play(ctx, url : str):
@@ -195,5 +197,4 @@ async def stop(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.stop()
     
->>>>>>> 4a59fb4bcd54aafff322a39b299f1907e635720b
 bot.run(TOKEN)
