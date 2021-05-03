@@ -5,6 +5,7 @@ import discord
 import random
 from dotenv import load_dotenv
 from discord.ext import commands
+from random import Random
 
 # Load .env
 load_dotenv()
@@ -38,6 +39,39 @@ async def chien(ctx, arg):
 async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
+
+@bot.command(name='ping')
+async def ping(ctx):
+    await ctx.channel.send('pong!')
+
+@bot.command(name='salutation')
+async def salutation(ctx):
+    salutation = [
+        'Hello!',
+        'Bonjour!',
+        'Aloha!',
+        'Buenos dias!',
+        'こんにちは!',
+        'Buongiorno!',
+        'Salve!',
+        'Buna ziua!',
+    ]
+
+    response = random.choice(salutation)
+    await ctx.channel.send(response)
+
+@bot.command(name='yahtzee')
+async def yahtzee(ctx):
+    valeurJoueur = random.randrange(5, 30, 2)
+    valeurBot = random.randrange(5, 30, 2)
+    if valeurJoueur > valeurBot:
+        resultat = 'Vous avez gagné!'
+    elif valeurJoueur < valeurBot:
+        resultat = 'Désolé, vous avez perdu!'
+    elif valeurJoueur == valeurBot:
+        resultat = 'Hum, match nul!'
+
+    await ctx.channel.send('Votre valeur: '+ str(valeurJoueur) + ' Ma valeur: '+ str(valeurBot) + ' Résultat: ' + resultat)
 
 # Affiche des meme
 @bot.command(name='meme')
