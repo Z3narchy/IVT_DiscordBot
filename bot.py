@@ -5,6 +5,7 @@ import discord
 import random
 from dotenv import load_dotenv
 from discord.ext import commands
+import time
 
 # Load .env
 load_dotenv()
@@ -55,7 +56,8 @@ async def patate(ctx, arg):
 async def multiply(ctx, arg, arg2):
     paulKing = 'resultat ='
     await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
-
+    
+#Jouer à roche papier ciseau
 @bot.command(name='rpc')
 async def rpc(ctx, arg):
     result = ""
@@ -90,6 +92,28 @@ async def rpc(ctx, arg):
     
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
+
+
+@bot.command(name = 'rickroll')
+async def rickroll(ctx):
+    content = [
+        ":notes:",
+        "Never gonna give you up",
+        "Never gonna let you down",
+        "Never gonna run around and desert you",
+        "Never gonna make you cry",
+        "Never gonna say goodbye",
+        "Never gonna tell a lie and hurt you",
+        ":notes:",
+        "https://cdn.vox-cdn.com/thumbor/HWPOwK-35K4Zkh3_t5Djz8od-jE=/0x86:1192x710/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22312759/rickroll_4k.jpg"
+    ]
+     
+    for line in content:
+     await ctx.send(f'{line}')
+     time.sleep(2)
+    
+
+               
 
 
 bot.run(TOKEN)
