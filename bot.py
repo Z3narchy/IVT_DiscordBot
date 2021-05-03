@@ -6,12 +6,8 @@ import random
 import time
 from dotenv import load_dotenv
 from discord.ext import commands
-<<<<<<< HEAD
-import time
-=======
 from discord import FFmpegPCMAudio
 from random import Random
->>>>>>> cc4732c570daec8df1d7f7a6b2643bc10e3320a3
 
 # Load .env
 load_dotenv()
@@ -45,21 +41,6 @@ async def chien(ctx, arg):
 async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
-<<<<<<< HEAD
-# Pour Étienne 
-@bot.command(name='patate')
-async def patate(ctx, arg):
-    reponsePatate = "DÉ PETATES!"
-    await ctx.send(reponsePatate + ' ' + arg)
-
-# Fait la multipication de deux nombres
-@bot.command(name='multiply')
-async def multiply(ctx, arg, arg2):
-    paulKing = 'resultat ='
-    await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
-    
-#Jouer à roche papier ciseau
-=======
 
 # Ping Pong
 @bot.command(name='ping')
@@ -104,7 +85,6 @@ async def meme(ctx):
     await ctx.send(reponsejson['data']['image'])
 
 # Roche Papier Ciseau
->>>>>>> cc4732c570daec8df1d7f7a6b2643bc10e3320a3
 @bot.command(name='rpc')
 async def rpc(ctx, arg):
     result = ""
@@ -145,6 +125,24 @@ async def rpc(ctx, arg):
 async def lyrics(ctx, arg1, arg2):
     reponsejson = requests.get(f'https://api.lyrics.ovh/v1/{arg1}/{arg2}').json()
     await ctx.send(reponsejson['lyrics'])
+
+@bot.command(name = 'rickroll')
+async def rickroll(ctx):
+    content = [
+        ":notes:",
+        "Never gonna give you up",
+        "Never gonna let you down",
+        "Never gonna run around and desert you",
+        "Never gonna make you cry",
+        "Never gonna say goodbye",
+        "Never gonna tell a lie and hurt you",
+        ":notes:",
+        "https://cdn.vox-cdn.com/thumbor/HWPOwK-35K4Zkh3_t5Djz8od-jE=/0x86:1192x710/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22312759/rickroll_4k.jpg"
+    ]
+     
+    for line in content:
+     await ctx.send(f'{line}')
+     time.sleep(2)
 
 #Youtube bot
 @bot.command(name='play')
@@ -187,31 +185,7 @@ async def play(ctx, url : str):
                 os.rename(file, 'song.mp3')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
         voice.play(discord.FFmpegPCMAudio('song.mp3'))
-
-<<<<<<< HEAD
-@bot.command(name = 'rickroll')
-async def rickroll(ctx):
-    content = [
-        ":notes:",
-        "Never gonna give you up",
-        "Never gonna let you down",
-        "Never gonna run around and desert you",
-        "Never gonna make you cry",
-        "Never gonna say goodbye",
-        "Never gonna tell a lie and hurt you",
-        ":notes:",
-        "https://cdn.vox-cdn.com/thumbor/HWPOwK-35K4Zkh3_t5Djz8od-jE=/0x86:1192x710/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22312759/rickroll_4k.jpg"
-    ]
-     
-    for line in content:
-     await ctx.send(f'{line}')
-     time.sleep(2)
     
-
-               
-
-
-=======
 @bot.command(name='leave')
 async def leave(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
@@ -241,5 +215,4 @@ async def stop(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
     voice.stop()
     
->>>>>>> cc4732c570daec8df1d7f7a6b2643bc10e3320a3
 bot.run(TOKEN)
