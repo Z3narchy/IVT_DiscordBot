@@ -44,7 +44,7 @@ async def chuck(ctx):
 async def meme(ctx):
     reponsejson = requests.get(f'http://alpha-meme-maker.herokuapp.com/memes/{random.randrange(0 , 150)}').json()
     await ctx.send(reponsejson['data']['image'])
-    
+
 # Roche Papier Ciseau
 @bot.command(name='rpc')
 async def rpc(ctx, arg):
@@ -80,4 +80,5 @@ async def rpc(ctx, arg):
     
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
+    
 bot.run(TOKEN)
