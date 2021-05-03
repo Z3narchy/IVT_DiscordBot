@@ -82,12 +82,11 @@ async def meteoMontreal(ctx):
     reponseMeteo = requests.get('https://www.metaweather.com/api/location/3534/').json()
     for item in reponseMeteo['consolidated_weather']:
         await ctx.channel.send('Date: '+ str(item['applicable_date']) + '   Humidité: ' + str(round(item['humidity'],2)) +
-        ' %   Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
+        ' %   Temperature: ' + str(round(item['the_temp'],2)) + ' °C' + '  Condition: '+ str(item['weather_state_name']))
 
-@bot.command(name='searchmeteo')
-async def seachmeteo(ctx, arg):
+@bot.command(name='meteoRecherche')
+async def meteoRecherche(ctx, arg):
     reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/search/?query={arg}').json()
-    print(reponseMeteo)
     for item in reponseMeteo:
         await ctx.channel.send('Ville: '+ str(item['title']) +'  id: ' + str(item['woeid']))
 
@@ -97,7 +96,24 @@ async def meteo(ctx, arg):
     print(reponseMeteo)
     for item in reponseMeteo['consolidated_weather']:
         await ctx.channel.send('Date: '+ str(item['applicable_date']) + ' Humidité: ' + str(round(item['humidity'],2)) +
-        ' % Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
+        ' % Temperature: ' + str(round(item['the_temp'],2)) + ' °C' + '  Condition: '+ str(item['weather_state_name']))
+
+
+@bot.command(name='meteoVille')
+async def meteoVille(ctx, arg):
+    reponseVille = requests.get(f'https://www.metaweather.com/api/location/search/?query={arg}').json()
+    villeTrouve = False
+    for item in reponseVille:
+        if item['title'] == arg:
+            id = item['woeid']
+            reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/{id}/').json()
+            villeTrouve = True
+            for item in reponseMeteo['consolidated_weather']:
+                await ctx.channel.send('Date: '+ str(item['applicable_date']) + ' Humidité: ' + str(round(item['humidity'],2)) +
+                ' % Temperature: ' + str(round(item['the_temp'],2)) + ' °C' + '  Condition: '+ str(item['weather_state_name']))
+    
+    if not villeTrouve :
+        await ctx.channel.send('La ville n\'a pas été trouvé. Utilisé la commande \'meteoRecherche\' pour trouvé la ville.')
 
 
 # Affiche des meme
