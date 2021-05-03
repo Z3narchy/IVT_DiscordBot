@@ -16,12 +16,6 @@ GUILD = os.getenv('DISCORD_GUILD')
 bot = commands.Bot(command_prefix='!')
 
 # Commande du bot
-# Affiche des meme
-@bot.command(name='meme')
-async def meme(ctx):
-    reponsejson = requests.get(f'http://alpha-meme-maker.herokuapp.com/memes/{random.randrange(0 , 150)}').json()
-    await ctx.send(reponsejson['data']['image'])
-
 @bot.command(name='actu')
 async def actu(ctx):
     reponseActu = requests.get('https://api.rss2json.com/v1/api.json?rss_url=https%3A%2F%2Fnews.ycombinator.com%2Frss').json()
@@ -45,17 +39,6 @@ async def chien(ctx, arg):
 async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
-# Pour Étienne 
-@bot.command(name='patate')
-async def patate(ctx, arg):
-    reponsePatate = "DÉ PETATES!"
-    await ctx.send(reponsePatate + ' ' + arg)
-
-# Fait la multipication de deux nombres
-@bot.command(name='multiply')
-async def multiply(ctx, arg, arg2):
-    paulKing = 'resultat ='
-    await ctx.send(f'{paulKing} {(int(arg) * int(arg2))}')
 
 @bot.command(name='ping')
 async def ping(ctx):
@@ -90,4 +73,45 @@ async def yahtzee(ctx):
 
     await ctx.channel.send('Votre valeur: '+ str(valeurJoueur) + ' Ma valeur: '+ str(valeurBot) + ' Résultat: ' + resultat)
 
+# Affiche des meme
+@bot.command(name='meme')
+async def meme(ctx):
+    reponsejson = requests.get(f'http://alpha-meme-maker.herokuapp.com/memes/{random.randrange(0 , 150)}').json()
+    await ctx.send(reponsejson['data']['image'])
+    
+# Roche Papier Ciseau
+@bot.command(name='rpc')
+async def rpc(ctx, arg):
+    result = ""
+    answers = ["roche", "papier", "ciseaux"]
+    answerReturned = random.choice(answers)
+    results = ["égalité!",  "IVT Bot wins, FATALITY!",  "Pfff... tu as gagné, c\'était de la chance"]
+    
+    if arg.lower() == answerReturned:
+        result = results[0]
+        
+    elif arg.lower() == answers[0]:
+        if answerReturned == answers[1]:
+            result = results[1]
+        elif answerReturned == answers[2]:
+            result = results[2]
+            
+    elif arg.lower() == answers[1]:
+        if answerReturned == answers[2]:
+            result = results[1]
+        elif answerReturned == answers[0]:
+            result = results[2]
+    
+    elif arg.lower() == answers[2]:
+        if answerReturned == answers[0]:
+            result = results[1]
+        elif answerReturned == answers[1]:
+            result = results[2]
+
+    else:
+        result = "sais tu au moins jouer à roche/papier/ciseaux?"
+        answerReturned = "Meh"
+    
+    message = answerReturned + ", " + result
+    await ctx.send(f'{message}')
 bot.run(TOKEN)
