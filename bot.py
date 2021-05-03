@@ -125,6 +125,24 @@ async def lyrics(ctx, arg1, arg2):
     reponsejson = requests.get(f'https://api.lyrics.ovh/v1/{arg1}/{arg2}').json()
     await ctx.send(reponsejson['lyrics'])
 
+@bot.command(name = 'rickroll')
+async def rickroll(ctx):
+    content = [
+        ":notes:",
+        "Never gonna give you up",
+        "Never gonna let you down",
+        "Never gonna run around and desert you",
+        "Never gonna make you cry",
+        "Never gonna say goodbye",
+        "Never gonna tell a lie and hurt you",
+        ":notes:",
+        "https://cdn.vox-cdn.com/thumbor/HWPOwK-35K4Zkh3_t5Djz8od-jE=/0x86:1192x710/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/22312759/rickroll_4k.jpg"
+    ]
+     
+    for line in content:
+     await ctx.send(f'{line}')
+     time.sleep(2)
+
 #Youtube bot
 @bot.command(name='play')
 async def play(ctx, url : str):
@@ -166,6 +184,7 @@ async def play(ctx, url : str):
                 os.rename(file, 'song.mp3')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
         voice.play(discord.FFmpegPCMAudio('song.mp3'))
+    
 @bot.command(name='leave')
 async def leave(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
