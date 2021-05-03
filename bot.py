@@ -114,5 +114,10 @@ async def rpc(ctx, arg):
     
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
-    
+
+@bot.command(name='lyrics')
+async def lyrics(ctx, arg1, arg2):
+    reponsejson = requests.get(f'https://api.lyrics.ovh/v1/{arg1}/{arg2}').json()
+    await ctx.send(reponsejson['lyrics'])
+
 bot.run(TOKEN)
