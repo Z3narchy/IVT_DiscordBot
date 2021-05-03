@@ -7,7 +7,6 @@ import time
 from dotenv import load_dotenv
 from discord.ext import commands
 from discord import FFmpegPCMAudio
-from random import Random
 
 # Load .env
 load_dotenv()
@@ -167,7 +166,6 @@ async def play(ctx, url : str):
                 os.rename(file, 'song.mp3')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
         voice.play(discord.FFmpegPCMAudio('song.mp3'))
-
 @bot.command(name='leave')
 async def leave(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
@@ -175,7 +173,6 @@ async def leave(ctx):
         await voice.disconnect()
     else:
         await ctx.send('Je ne suis dans aucun salon vocal.')
-
 @bot.command(name='pause')
 async def pause(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
@@ -183,7 +180,6 @@ async def pause(ctx):
         voice.pause()
     else:
         await ctx.send('Je ne joue pas d\'audio présentement')
-
 @bot.command(name='resume')
 async def resume(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
@@ -191,7 +187,6 @@ async def resume(ctx):
         voice.resume()
     else:
         await ctx.send('L\'audio n\'est pas en pause.')
-
 @bot.command(name='stop')
 async def stop(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
