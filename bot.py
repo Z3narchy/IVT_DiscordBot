@@ -183,8 +183,7 @@ async def play(ctx, url : str):
             if file.endswith('.mp3'):
                 os.rename(file, 'song.mp3')
         voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
-        voice.play(discord.FFmpegPCMAudio('song.mp3'))
-    
+        voice.play(discord.FFmpegPCMAudio('song.mp3'))   
 @bot.command(name='leave')
 async def leave(ctx):
     voice = discord.utils.get(bot.voice_clients, guild=ctx.guild)
