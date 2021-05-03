@@ -73,6 +73,29 @@ async def yahtzee(ctx):
 
     await ctx.channel.send('Votre valeur: '+ str(valeurJoueur) + ' Ma valeur: '+ str(valeurBot) + ' Résultat: ' + resultat)
 
+@bot.command(name='meteoMontreal')
+async def meteoMontreal(ctx):
+    reponseMeteo = requests.get('https://www.metaweather.com/api/location/3534/').json()
+    for item in reponseMeteo['consolidated_weather']:
+        await ctx.channel.send('Date: '+ str(item['applicable_date']) + '   Humidité: ' + str(round(item['humidity'],2)) +
+        ' %   Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
+
+@bot.command(name='searchmeteo')
+async def seachmeteo(ctx, arg):
+    reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/search/?query={arg}').json()
+    print(reponseMeteo)
+    for item in reponseMeteo:
+        await ctx.channel.send('Ville: '+ str(item['title']) +'  id: ' + str(item['woeid']))
+
+@bot.command(name='meteo')
+async def meteo(ctx, arg):
+    reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/{arg}/').json()
+    print(reponseMeteo)
+    for item in reponseMeteo['consolidated_weather']:
+        await ctx.channel.send('Date: '+ str(item['applicable_date']) + ' Humidité: ' + str(round(item['humidity'],2)) +
+        ' % Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
+
+
 # Affiche des meme
 @bot.command(name='meme')
 async def meme(ctx):
@@ -115,3 +138,6 @@ async def rpc(ctx, arg):
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
 bot.run(TOKEN)
+
+# python -m pip install -U youtube_dl
+# https://www.ffmpeg.org/
