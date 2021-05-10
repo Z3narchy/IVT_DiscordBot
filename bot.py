@@ -41,11 +41,6 @@ async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
 
-# Ping Pong
-@bot.command(name='ping')
-async def ping(ctx):
-    await ctx.channel.send('pong!')
-
 # Salutations multilingues
 @bot.command(name='salutation')
 async def salutation(ctx):
@@ -99,7 +94,6 @@ async def meteo(ctx, arg):
         await ctx.channel.send('Date: '+ str(item['applicable_date']) + ' Humidité: ' + str(round(item['humidity'],2)) +
         ' % Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
 
-
 # Affiche des meme
 @bot.command(name='meme')
 async def meme(ctx):
@@ -141,7 +135,6 @@ async def rpc(ctx, arg):
     
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
-
 
 # Requete Lyrics API
 @bot.command(name='lyrics')
