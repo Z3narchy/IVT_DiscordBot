@@ -80,7 +80,7 @@ async def meteoMontreal(ctx):
         ' %   Temperature: ' + str(round(item['the_temp'],2)) + ' °C')
 
 @bot.command(name='searchmeteo')
-async def seachmeteo(ctx, arg):
+async def searchmeteo(ctx, arg):
     reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/search/?query={arg}').json()
     print(reponseMeteo)
     for item in reponseMeteo:
