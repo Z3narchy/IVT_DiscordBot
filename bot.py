@@ -41,11 +41,6 @@ async def chuck(ctx):
     reponsejson = requests.get('https://api.chucknorris.io/jokes/random').json()
     await ctx.send(reponsejson['value'])
 
-# Ping Pong
-@bot.command(name='ping')
-async def ping(ctx):
-    await ctx.channel.send('pong!')
-
 # Salutations multilingues
 @bot.command(name='salutation')
 async def salutation(ctx):
@@ -84,6 +79,7 @@ async def meteoMontreal(ctx):
         await ctx.channel.send('Date: '+ str(item['applicable_date']) + '   Humidité: ' + str(round(item['humidity'],2)) +
         ' %   Temperature: ' + str(round(item['the_temp'],2)) + ' °C' + '  Condition: '+ str(item['weather_state_name']))
 
+
 @bot.command(name='meteoRecherche')
 async def meteoRecherche(ctx, arg):
     reponseMeteo = requests.get(f'https://www.metaweather.com/api/location/search/?query={arg}').json()
@@ -114,7 +110,6 @@ async def meteoVille(ctx, arg):
     
     if not villeTrouve :
         await ctx.channel.send('La ville n\'a pas été trouvé. Utilisé la commande \'meteoRecherche\' pour trouvé la ville.')
-
 
 # Affiche des meme
 @bot.command(name='meme')
@@ -157,7 +152,6 @@ async def rpc(ctx, arg):
     
     message = answerReturned + ", " + result
     await ctx.send(f'{message}')
-
 
 # Requete Lyrics API
 @bot.command(name='lyrics')
